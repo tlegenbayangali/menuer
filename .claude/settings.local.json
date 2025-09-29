@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__shadcn__get_project_registries",
+      "mcp__shadcn__get_add_command_for_items",
+      "Bash(npx:*)",
+      "mcp__shadcn__search_items_in_registries",
+      "Bash(npm install:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "shadcn"
+  ]
+}
