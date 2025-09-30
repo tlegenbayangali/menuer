@@ -23,11 +23,13 @@ export function IngredientQuantityEdit({
   unit,
   ingredientName,
 }: IngredientQuantityEditProps) {
-  const [isEditing, setIsEditing] = useState(false)
-  const [quantity, setQuantity] = useState(currentQuantity.toString())
+  const [isEditing, setIsEditing] = useState(currentQuantity === 0)
+  const [quantity, setQuantity] = useState(currentQuantity === 0 ? '' : currentQuantity.toString())
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const supabase = createClient()
+
+  const isEmptyQuantity = currentQuantity === 0
 
   const handleSave = async () => {
     setLoading(true)
@@ -63,9 +65,12 @@ export function IngredientQuantityEdit({
 
   if (isEditing) {
     return (
-      <div className="flex items-center justify-between p-3 border rounded-lg bg-muted/50">
+      <div className={`flex items-center justify-between p-3 border-2 rounded-lg ${isEmptyQuantity ? 'border-orange-500 bg-orange-50 dark:bg-orange-950/20' : 'border-muted bg-muted/50'}`}>
         <div>
           <p className="font-medium">{ingredientName}</p>
+          {isEmptyQuantity && (
+            <p className="text-xs text-orange-600 dark:text-orange-400">Укажите количество</p>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <Input
@@ -76,6 +81,7 @@ export function IngredientQuantityEdit({
             className="w-24 h-8"
             disabled={loading}
             autoFocus
+            placeholder="0"
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleSave()
               if (e.key === 'Escape') handleCancel()

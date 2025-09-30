@@ -2,10 +2,12 @@ import { createClient } from '@/utils/supabase/server'
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Plus } from 'lucide-react'
 import Link from 'next/link'
 import { AssignIngredientsDialog } from '@/components/dishes/assign-ingredients-dialog'
 import { IngredientQuantityEdit } from '@/components/dishes/ingredient-quantity-edit'
+import { AddIngredientDialog } from '@/components/dishes/add-ingredient-dialog'
+import { DishPageWrapper } from '@/components/dishes/dish-page-wrapper'
 
 export default async function DishDetailPage({
   params,
@@ -46,6 +48,7 @@ export default async function DishDetailPage({
   const usedInMenus = menus?.map(m => m.menus).filter(Boolean) || []
 
   return (
+    <DishPageWrapper dishId={id}>
     <div className="p-8">
       <Link href="/dishes">
         <Button variant="ghost" size="sm" className="mb-6">
@@ -101,9 +104,17 @@ export default async function DishDetailPage({
                 <CardTitle>Ингредиенты</CardTitle>
                 <CardDescription>Состав блюда</CardDescription>
               </div>
-              <AssignIngredientsDialog dishId={id} currentIngredients={ingredients as any[]}>
-                <Button size="sm">Управление</Button>
-              </AssignIngredientsDialog>
+              <div className="flex gap-2">
+                <AddIngredientDialog dishId={id}>
+                  <Button size="sm" variant="outline">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Добавить
+                  </Button>
+                </AddIngredientDialog>
+                <AssignIngredientsDialog dishId={id} currentIngredients={ingredients as any[]}>
+                  <Button size="sm" variant="outline">Управление</Button>
+                </AssignIngredientsDialog>
+              </div>
             </div>
           </CardHeader>
           <CardContent>
@@ -129,5 +140,6 @@ export default async function DishDetailPage({
         </Card>
       </div>
     </div>
+    </DishPageWrapper>
   )
 }
