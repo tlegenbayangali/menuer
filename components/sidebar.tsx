@@ -1,9 +1,9 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import {
   LayoutDashboard,
@@ -11,8 +11,9 @@ import {
   BookOpen,
   UtensilsCrossed,
   Package,
-  LogOut
 } from 'lucide-react'
+import { UserMenu } from '@/components/profile/user-menu'
+import type { User } from '@supabase/supabase-js'
 
 const menuItems = [
   { href: '/dashboard', label: 'Дашборд', icon: LayoutDashboard },
@@ -24,14 +25,25 @@ const menuItems = [
 
 export function Sidebar() {
   const pathname = usePathname()
-  const router = useRouter()
   const supabase = createClient()
+  const [user, setUser] = useState<User | null>(null)
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.push('/auth/login')
-    router.refresh()
-  }
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      setUser(user)
+    }
+    getUser()
+
+    // Subscribe to auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [supabase])
 
   return (
     <aside className="flex h-screen w-64 flex-col border-r bg-muted/40">
@@ -63,14 +75,7 @@ export function Sidebar() {
         })}
       </nav>
       <div className="border-t p-4">
-        <Button
-          variant="ghost"
-          className="w-full justify-start"
-          onClick={handleLogout}
-        >
-          <LogOut className="mr-3 h-5 w-5" />
-          Выйти
-        </Button>
+        {user && <UserMenu user={user} />}
       </div>
     </aside>
   )

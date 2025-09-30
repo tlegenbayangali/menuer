@@ -63,3 +63,9 @@ Server-side Supabase client is created via `utils/supabase/server.ts`:
 - Server Components are used by default (React Server Components enabled)
 - Supabase queries should use the server client from `@/utils/supabase/server` in Server Components
 - The `cn()` utility from `@/lib/utils` is used for merging Tailwind classes with variants
+
+## Git Commit Guidelines
+
+- **NEVER** add "Co-Authored-By: Claude" to commit messages
+- **NEVER** add "🤖 Generated with Claude Code" footer to commit messages
+- Use simple, clear commit messages following conventional commit format
