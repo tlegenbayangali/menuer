@@ -18,17 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-
-const UNIT_LABELS: Record<string, string> = {
-  gram: 'Грамм',
-  kilogram: 'Килограмм',
-  piece: 'Штука',
-  liter: 'Литр',
-  milliliter: 'Миллилитр',
-  tablespoon: 'Столовая ложка',
-  teaspoon: 'Чайная ложка',
-  cup: 'Стакан',
-}
+import { getUnitFullName } from '@/lib/units'
 
 interface IngredientCardProps {
   ingredient: {
@@ -68,7 +58,7 @@ export function IngredientCard({ ingredient }: IngredientCardProps) {
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">
-          Единица: {UNIT_LABELS[ingredient.unit] || ingredient.unit}
+          Единица: {getUnitFullName(ingredient.unit)}
         </p>
       </CardContent>
       <CardFooter className="flex gap-2">

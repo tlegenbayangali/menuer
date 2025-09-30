@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { AssignIngredientsDialog } from '@/components/dishes/assign-ingredients-dialog'
+import { IngredientQuantityEdit } from '@/components/dishes/ingredient-quantity-edit'
 
 export default async function DishDetailPage({
   params,
@@ -46,81 +47,87 @@ export default async function DishDetailPage({
 
   return (
     <div className="p-8">
-      <div className="mb-8">
-        <Link href="/dishes">
-          <Button variant="ghost" size="sm" className="mb-4">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Назад к блюдам
-          </Button>
-        </Link>
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold">{dish.name}</h1>
-            {dish.description && (
-              <p className="text-muted-foreground">{dish.description}</p>
-            )}
-          </div>
-          <AssignIngredientsDialog dishId={id} currentIngredients={ingredients as any[]}>
-            <Button>Управление ингредиентами</Button>
-          </AssignIngredientsDialog>
-        </div>
-      </div>
+      <Link href="/dishes">
+        <Button variant="ghost" size="sm" className="mb-6">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Назад к блюдам
+        </Button>
+      </Link>
 
-      {usedInMenus.length > 0 && (
-        <Card className="mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Left column - Description */}
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl">{dish.name}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {dish.description ? (
+                <div
+                  className="prose prose-sm max-w-none dark:prose-invert [&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2"
+                  dangerouslySetInnerHTML={{ __html: dish.description }}
+                />
+              ) : (
+                <p className="text-muted-foreground">Нет описания</p>
+              )}
+            </CardContent>
+          </Card>
+
+          {usedInMenus.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Используется в меню</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {usedInMenus.map((menu: any) => (
+                    <Link key={menu.id} href={`/menus/${menu.id}`}>
+                      <Button variant="outline" size="sm">
+                        {menu.name}
+                      </Button>
+                    </Link>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+
+        {/* Right column - Ingredients */}
+        <Card>
           <CardHeader>
-            <CardTitle>Используется в меню</CardTitle>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Ингредиенты</CardTitle>
+                <CardDescription>Состав блюда</CardDescription>
+              </div>
+              <AssignIngredientsDialog dishId={id} currentIngredients={ingredients as any[]}>
+                <Button size="sm">Управление</Button>
+              </AssignIngredientsDialog>
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-wrap gap-2">
-              {usedInMenus.map((menu: any) => (
-                <Link key={menu.id} href={`/menus/${menu.id}`}>
-                  <Button variant="outline" size="sm">
-                    {menu.name}
-                  </Button>
-                </Link>
-              ))}
-            </div>
+            {ingredients.length === 0 ? (
+              <p className="text-muted-foreground">
+                Нет ингредиентов. Добавьте ингредиенты, чтобы начать.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {ingredients.map((ingredient: any) => (
+                  <IngredientQuantityEdit
+                    key={ingredient.id}
+                    dishId={id}
+                    ingredientId={ingredient.id}
+                    currentQuantity={ingredient.quantity || 0}
+                    unit={ingredient.unit}
+                    ingredientName={ingredient.name}
+                  />
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
-      )}
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Ингредиенты</CardTitle>
-          <CardDescription>
-            Состав блюда
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {ingredients.length === 0 ? (
-            <p className="text-muted-foreground">
-              Нет ингредиентов. Добавьте ингредиенты, чтобы начать.
-            </p>
-          ) : (
-            <div className="space-y-3">
-              {ingredients.map((ingredient: any) => (
-                <div
-                  key={ingredient.id}
-                  className="flex items-center justify-between p-3 border rounded-lg"
-                >
-                  <div>
-                    <p className="font-medium">{ingredient.name}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {ingredient.unit}
-                    </p>
-                  </div>
-                  {ingredient.quantity && (
-                    <p className="text-sm font-semibold">
-                      {ingredient.quantity}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+      </div>
     </div>
   )
 }

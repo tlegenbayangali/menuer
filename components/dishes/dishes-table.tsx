@@ -103,7 +103,7 @@ export function DishesTable({ dishes }: DishesTableProps) {
                 {getSortIcon('name')}
               </Button>
             </TableHead>
-            <TableHead>Описание</TableHead>
+            <TableHead className="w-[400px]">Описание</TableHead>
             <TableHead className="text-right">Действия</TableHead>
           </TableRow>
         </TableHeader>
@@ -118,8 +118,11 @@ export function DishesTable({ dishes }: DishesTableProps) {
             filteredAndSortedDishes.map((dish) => (
               <TableRow key={dish.id}>
                 <TableCell className="font-medium">{dish.name}</TableCell>
-                <TableCell className="text-muted-foreground">
-                  {dish.description || '—'}
+                <TableCell className="text-muted-foreground max-w-[400px]">
+                  <div
+                    className="line-clamp-2 prose prose-sm max-w-none [&_p]:m-0 [&_ul]:m-0 [&_ol]:m-0"
+                    dangerouslySetInnerHTML={{ __html: dish.description || '—' }}
+                  />
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">

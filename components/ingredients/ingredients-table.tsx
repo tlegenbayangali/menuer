@@ -7,17 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Pencil, ArrowUpDown, ArrowUp, ArrowDown, Search } from 'lucide-react'
 import { IngredientDialog } from './ingredient-dialog'
 import { IngredientDeleteButton } from './ingredient-delete-button'
-
-const UNIT_LABELS: Record<string, string> = {
-  gram: 'Грамм',
-  kilogram: 'Килограмм',
-  piece: 'Штука',
-  liter: 'Литр',
-  milliliter: 'Миллилитр',
-  tablespoon: 'Столовая ложка',
-  teaspoon: 'Чайная ложка',
-  cup: 'Стакан',
-}
+import { getUnitFullName } from '@/lib/units'
 
 interface Ingredient {
   id: string
@@ -66,7 +56,7 @@ export function IngredientsTable({ ingredients }: IngredientsTableProps) {
       const query = searchQuery.toLowerCase()
       result = result.filter(ingredient =>
         ingredient.name.toLowerCase().includes(query) ||
-        UNIT_LABELS[ingredient.unit]?.toLowerCase().includes(query)
+        getUnitFullName(ingredient.unit).toLowerCase().includes(query)
       )
     }
 
@@ -80,8 +70,8 @@ export function IngredientsTable({ ingredients }: IngredientsTableProps) {
           aValue = a.name.toLowerCase()
           bValue = b.name.toLowerCase()
         } else {
-          aValue = UNIT_LABELS[a.unit]?.toLowerCase() || a.unit.toLowerCase()
-          bValue = UNIT_LABELS[b.unit]?.toLowerCase() || b.unit.toLowerCase()
+          aValue = getUnitFullName(a.unit).toLowerCase()
+          bValue = getUnitFullName(b.unit).toLowerCase()
         }
 
         if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1
@@ -145,7 +135,7 @@ export function IngredientsTable({ ingredients }: IngredientsTableProps) {
               <TableRow key={ingredient.id}>
                 <TableCell className="font-medium">{ingredient.name}</TableCell>
                 <TableCell className="text-muted-foreground">
-                  {UNIT_LABELS[ingredient.unit] || ingredient.unit}
+                  {getUnitFullName(ingredient.unit)}
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">

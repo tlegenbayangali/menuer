@@ -22,17 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
-const UNIT_TYPES = [
-  { value: 'gram', label: 'Грамм' },
-  { value: 'kilogram', label: 'Килограмм' },
-  { value: 'piece', label: 'Штука' },
-  { value: 'liter', label: 'Литр' },
-  { value: 'milliliter', label: 'Миллилитр' },
-  { value: 'tablespoon', label: 'Столовая ложка' },
-  { value: 'teaspoon', label: 'Чайная ложка' },
-  { value: 'cup', label: 'Стакан' },
-]
+import { UNIT_TYPES } from '@/lib/units'
 
 interface IngredientDialogProps {
   children: React.ReactNode
