@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { DishDialog } from './dish-dialog'
 import { Pencil, Trash2, Eye } from 'lucide-react'
 import Link from 'next/link'
+import DOMPurify from 'dompurify'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -69,7 +70,7 @@ export function DishCard({ dish }: DishCardProps) {
         <CardTitle>{dish.name}</CardTitle>
         {dish.description && (
           <CardDescription
-            dangerouslySetInnerHTML={{ __html: dish.description }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(dish.description) }}
             className="line-clamp-2"
           />
         )}

@@ -8,6 +8,7 @@ import { AssignIngredientsDialog } from '@/components/dishes/assign-ingredients-
 import { IngredientQuantityEdit } from '@/components/dishes/ingredient-quantity-edit'
 import { AddIngredientDialog } from '@/components/dishes/add-ingredient-dialog'
 import { DishPageWrapper } from '@/components/dishes/dish-page-wrapper'
+import DOMPurify from 'dompurify'
 
 export default async function DishDetailPage({
   params,
@@ -68,7 +69,7 @@ export default async function DishDetailPage({
               {dish.description ? (
                 <div
                   className="prose prose-sm max-w-none dark:prose-invert [&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2"
-                  dangerouslySetInnerHTML={{ __html: dish.description }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(dish.description) }}
                 />
               ) : (
                 <p className="text-muted-foreground">Нет описания</p>

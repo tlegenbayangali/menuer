@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { AssignMenusDialog } from '@/components/establishments/assign-menus-dialog'
+import DOMPurify from 'dompurify'
 
 export default async function EstablishmentDetailPage({
   params,
@@ -81,7 +82,7 @@ export default async function EstablishmentDetailPage({
                       <CardTitle className="text-lg">{menu.name}</CardTitle>
                       {menu.description && (
                         <CardDescription
-                          dangerouslySetInnerHTML={{ __html: menu.description }}
+                          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(menu.description) }}
                           className="line-clamp-2"
                         />
                       )}

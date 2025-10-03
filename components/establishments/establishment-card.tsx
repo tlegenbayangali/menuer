@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { EstablishmentDialog } from './establishment-dialog'
 import { Pencil, Trash2, Eye } from 'lucide-react'
 import Link from 'next/link'
+import DOMPurify from 'dompurify'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -58,7 +59,7 @@ export function EstablishmentCard({ establishment }: EstablishmentCardProps) {
         <CardTitle>{establishment.name}</CardTitle>
         {establishment.description && (
           <CardDescription
-            dangerouslySetInnerHTML={{ __html: establishment.description }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(establishment.description) }}
             className="line-clamp-2"
           />
         )}

@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { AssignDishesDialog } from '@/components/menus/assign-dishes-dialog'
+import DOMPurify from 'dompurify'
 
 export default async function MenuDetailPage({
   params,
@@ -109,7 +110,7 @@ export default async function MenuDetailPage({
                       <CardTitle className="text-lg">{dish.name}</CardTitle>
                       {dish.description && (
                         <CardDescription
-                          dangerouslySetInnerHTML={{ __html: dish.description }}
+                          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(dish.description) }}
                           className="line-clamp-2"
                         />
                       )}

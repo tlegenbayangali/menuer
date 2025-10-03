@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { MenuDialog } from './menu-dialog'
 import { Pencil, Trash2, Eye } from 'lucide-react'
 import Link from 'next/link'
+import DOMPurify from 'dompurify'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -58,7 +59,7 @@ export function MenuCard({ menu }: MenuCardProps) {
         <CardTitle>{menu.name}</CardTitle>
         {menu.description && (
           <CardDescription
-            dangerouslySetInnerHTML={{ __html: menu.description }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(menu.description) }}
             className="line-clamp-2"
           />
         )}
