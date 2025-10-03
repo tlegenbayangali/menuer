@@ -57,7 +57,10 @@ export function EstablishmentCard({ establishment }: EstablishmentCardProps) {
       <CardHeader>
         <CardTitle>{establishment.name}</CardTitle>
         {establishment.description && (
-          <CardDescription>{establishment.description}</CardDescription>
+          <CardDescription
+            dangerouslySetInnerHTML={{ __html: establishment.description }}
+            className="line-clamp-2"
+          />
         )}
       </CardHeader>
       {establishment.address && (

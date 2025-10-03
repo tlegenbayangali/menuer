@@ -57,7 +57,10 @@ export function MenuCard({ menu }: MenuCardProps) {
       <CardHeader>
         <CardTitle>{menu.name}</CardTitle>
         {menu.description && (
-          <CardDescription>{menu.description}</CardDescription>
+          <CardDescription
+            dangerouslySetInnerHTML={{ __html: menu.description }}
+            className="line-clamp-2"
+          />
         )}
       </CardHeader>
       {menu.price && (

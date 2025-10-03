@@ -80,7 +80,10 @@ export default async function EstablishmentDetailPage({
                     <CardHeader>
                       <CardTitle className="text-lg">{menu.name}</CardTitle>
                       {menu.description && (
-                        <CardDescription>{menu.description}</CardDescription>
+                        <CardDescription
+                          dangerouslySetInnerHTML={{ __html: menu.description }}
+                          className="line-clamp-2"
+                        />
                       )}
                     </CardHeader>
                   </Card>

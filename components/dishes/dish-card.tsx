@@ -68,7 +68,10 @@ export function DishCard({ dish }: DishCardProps) {
       <CardHeader>
         <CardTitle>{dish.name}</CardTitle>
         {dish.description && (
-          <CardDescription>{dish.description}</CardDescription>
+          <CardDescription
+            dangerouslySetInnerHTML={{ __html: dish.description }}
+            className="line-clamp-2"
+          />
         )}
       </CardHeader>
       <CardFooter className="flex gap-2">

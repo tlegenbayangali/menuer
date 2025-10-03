@@ -108,7 +108,10 @@ export default async function MenuDetailPage({
                     <CardHeader>
                       <CardTitle className="text-lg">{dish.name}</CardTitle>
                       {dish.description && (
-                        <CardDescription>{dish.description}</CardDescription>
+                        <CardDescription
+                          dangerouslySetInnerHTML={{ __html: dish.description }}
+                          className="line-clamp-2"
+                        />
                       )}
                     </CardHeader>
                   </Card>
