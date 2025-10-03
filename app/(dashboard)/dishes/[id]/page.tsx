@@ -8,7 +8,7 @@ import { AssignIngredientsDialog } from '@/components/dishes/assign-ingredients-
 import { IngredientQuantityEdit } from '@/components/dishes/ingredient-quantity-edit'
 import { AddIngredientDialog } from '@/components/dishes/add-ingredient-dialog'
 import { DishPageWrapper } from '@/components/dishes/dish-page-wrapper'
-import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify'
 
 export default async function DishDetailPage({
   params,

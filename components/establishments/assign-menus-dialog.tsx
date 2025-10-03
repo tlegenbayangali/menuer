@@ -17,7 +17,7 @@ interface AssignMenusDialogProps {
 export function AssignMenusDialog({ establishmentId, currentMenus, children }: AssignMenusDialogProps) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [allMenus, setAllMenus] = useState<Array<{ id: string; name: string; description: string | null }>>([])
+  const [allMenus, setAllMenus] = useState<Array<{ id: string; name: string }>>([])
   const [selectedMenuIds, setSelectedMenuIds] = useState<Set<string>>(new Set())
   const router = useRouter()
   const supabase = createClient()
@@ -32,7 +32,7 @@ export function AssignMenusDialog({ establishmentId, currentMenus, children }: A
   const loadMenus = async () => {
     const { data } = await supabase
       .from('menus')
-      .select('id, name, description')
+      .select('id, name')
       .order('name')
 
     setAllMenus(data || [])
@@ -99,23 +99,18 @@ export function AssignMenusDialog({ establishmentId, currentMenus, children }: A
             </p>
           ) : (
             allMenus.map((menu) => (
-              <div key={menu.id} className="flex items-start space-x-3">
+              <div key={menu.id} className="flex items-center space-x-3">
                 <Checkbox
                   id={menu.id}
                   checked={selectedMenuIds.has(menu.id)}
                   onCheckedChange={() => handleToggle(menu.id)}
                 />
-                <div className="flex-1">
-                  <Label
-                    htmlFor={menu.id}
-                    className="text-sm font-medium cursor-pointer"
-                  >
-                    {menu.name}
-                  </Label>
-                  {menu.description && (
-                    <p className="text-xs text-muted-foreground">{menu.description}</p>
-                  )}
-                </div>
+                <Label
+                  htmlFor={menu.id}
+                  className="text-sm font-medium cursor-pointer"
+                >
+                  {menu.name}
+                </Label>
               </div>
             ))
           )}

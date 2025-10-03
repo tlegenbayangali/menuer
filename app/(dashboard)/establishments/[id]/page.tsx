@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { AssignMenusDialog } from '@/components/establishments/assign-menus-dialog'
-import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify'
 
 export default async function EstablishmentDetailPage({
   params,
@@ -47,7 +47,10 @@ export default async function EstablishmentDetailPage({
           <div>
             <h1 className="text-3xl font-bold">{establishment.name}</h1>
             {establishment.description && (
-              <p className="text-muted-foreground">{establishment.description}</p>
+              <div
+                className="text-muted-foreground prose prose-sm max-w-none dark:prose-invert"
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(establishment.description) }}
+              />
             )}
             {establishment.address && (
               <p className="text-sm text-muted-foreground mt-2">

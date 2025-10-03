@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { AssignDishesDialog } from '@/components/menus/assign-dishes-dialog'
-import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify'
 
 export default async function MenuDetailPage({
   params,
@@ -56,7 +56,10 @@ export default async function MenuDetailPage({
           <div>
             <h1 className="text-3xl font-bold">{menu.name}</h1>
             {menu.description && (
-              <p className="text-muted-foreground">{menu.description}</p>
+              <div
+                className="text-muted-foreground prose prose-sm max-w-none dark:prose-invert"
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(menu.description) }}
+              />
             )}
             {menu.price && (
               <p className="text-lg font-semibold mt-2">
