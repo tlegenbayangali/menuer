@@ -32,8 +32,8 @@ export default async function EstablishmentsPage() {
       {!establishments || establishments.length === 0 ? (
         <Card>
           <CardHeader>
-            <CardTitle>Нет заведений</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl">Нет заведений</CardTitle>
+            <CardDescription className="text-sm">
               Начните с добавления вашего первого заведения
             </CardDescription>
           </CardHeader>

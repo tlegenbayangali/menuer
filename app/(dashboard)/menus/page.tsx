@@ -32,8 +32,8 @@ export default async function MenusPage() {
       {!menus || menus.length === 0 ? (
         <Card>
           <CardHeader>
-            <CardTitle>Нет меню</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl">Нет меню</CardTitle>
+            <CardDescription className="text-sm">
               Начните с добавления вашего первого меню
             </CardDescription>
           </CardHeader>

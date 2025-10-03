@@ -32,8 +32,8 @@ export default async function DishesPage() {
       {!dishes || dishes.length === 0 ? (
         <Card>
           <CardHeader>
-            <CardTitle>Нет блюд</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl">Нет блюд</CardTitle>
+            <CardDescription className="text-sm">
               Начните с добавления вашего первого блюда
             </CardDescription>
           </CardHeader>

@@ -72,7 +72,7 @@ export default async function MenuDetailPage({
       {usedInEstablishments.length > 0 && (
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Используется в заведениях</CardTitle>
+            <CardTitle className="text-xl">Используется в заведениях</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2">
@@ -90,8 +90,8 @@ export default async function MenuDetailPage({
 
       <Card>
         <CardHeader>
-          <CardTitle>Блюда в меню</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-xl">Блюда в меню</CardTitle>
+          <CardDescription className="text-sm">
             Блюда, доступные в этом меню
           </CardDescription>
         </CardHeader>

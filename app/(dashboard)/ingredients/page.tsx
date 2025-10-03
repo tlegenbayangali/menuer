@@ -32,8 +32,8 @@ export default async function IngredientsPage() {
       {!ingredients || ingredients.length === 0 ? (
         <Card>
           <CardHeader>
-            <CardTitle>Нет ингредиентов</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl">Нет ингредиентов</CardTitle>
+            <CardDescription className="text-sm">
               Начните с добавления вашего первого ингредиента
             </CardDescription>
           </CardHeader>

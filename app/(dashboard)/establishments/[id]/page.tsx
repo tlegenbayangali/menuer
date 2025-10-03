@@ -62,8 +62,8 @@ export default async function EstablishmentDetailPage({
 
       <Card>
         <CardHeader>
-          <CardTitle>Привязанные меню</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-xl">Привязанные меню</CardTitle>
+          <CardDescription className="text-sm">
             Меню, доступные в этом заведении
           </CardDescription>
         </CardHeader>

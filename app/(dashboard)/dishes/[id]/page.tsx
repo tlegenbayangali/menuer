@@ -62,7 +62,7 @@ export default async function DishDetailPage({
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">{dish.name}</CardTitle>
+              <CardTitle className="text-xl">{dish.name}</CardTitle>
             </CardHeader>
             <CardContent>
               {dish.description ? (
@@ -79,7 +79,7 @@ export default async function DishDetailPage({
           {usedInMenus.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>Используется в меню</CardTitle>
+                <CardTitle className="text-xl">Используется в меню</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
@@ -101,8 +101,8 @@ export default async function DishDetailPage({
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>Ингредиенты</CardTitle>
-                <CardDescription>Состав блюда</CardDescription>
+                <CardTitle className="text-xl">Ингредиенты</CardTitle>
+                <CardDescription className="text-sm">Состав блюда</CardDescription>
               </div>
               <div className="flex gap-2">
                 <AddIngredientDialog dishId={id}>

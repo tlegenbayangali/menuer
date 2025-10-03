@@ -45,8 +45,8 @@ export default function ImportPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Импорт данных</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-xl">Импорт данных</CardTitle>
+          <CardDescription className="text-sm">
             Нажмите кнопку для импорта 3 банкетных меню и всех блюд
           </CardDescription>
         </CardHeader>
